@@ -5,20 +5,20 @@ import React, { Key, useState, useEffect, useRef } from 'react'
 interface TODOTASKS {
   ADDTODOFUNCTION: (todo: string | null) => void;
   // This defines ADDTODOFUNCTION as a function that takes a string as a parameter(the task to add) and returns void (no return value).
-  EDITTODOs: string | undefined
+  EDITTODOs: string | undefined 
 }
-const InputFile: React.FC<TODOTASKS> = ({ ADDTODOFUNCTION, EDITTODOs  }) => {
+const InputFile: React.FC<TODOTASKS> = ({ ADDTODOFUNCTION, EDITTODOs }) => {
 
-  let [inputvalue, setinputvalue] = useState<string | null>(null)
+  let [inputvalue, setinputvalue] = useState<string  >('')
 
   const handleinput = (event: React.ChangeEvent<HTMLInputElement>) => {
     // In this case, React.ChangeEvent < HTMLInputElement > tells TypeScript that event is a change event coming from an HTMLInputElement.This allows TypeScript to understand that event.target is an HTMLInputElement, which has a value property.
     // console.log(event.target.value);
     setinputvalue(event.target.value);
-    if (inputvalue !== null) {
+    if (inputvalue !== '') {
       setERROR(false)
     }
-  
+
   }
 
 
@@ -37,21 +37,32 @@ const InputFile: React.FC<TODOTASKS> = ({ ADDTODOFUNCTION, EDITTODOs  }) => {
     // setinputvalue(null)
     if (inputRef.current) {
       inputRef.current.value = ''
-      setinputvalue(null)
+      setinputvalue('')
     }
-    if (inputvalue === null) {
+    if (inputvalue === '') {
       setERROR(true)
       console.log(ERROR);
     }
 
-
   }
+  console.log('this is edittodo value from input', EDITTODOs);
+
+  useEffect(() => {
+    if (EDITTODOs !== undefined) {
+      setinputvalue(EDITTODOs)
+    }
+  }, [EDITTODOs])
+
+
+
   return (
     <>
       <form action="" className='flex gap-7 w-full justify-center items-center'>
-        <input ref={inputRef} type="text" placeholder='ADD TODO' className='border-2 p-2 border-black w-2/3 ' onInput={handleinput}   />
-
-        <button type="submit" onClick={inputsubmit} className="bg-yellow-400 text-white font-bold py-2 px-4 rounded hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:ring-opacity-50 transition duration-150 ease-in-out">ADD TODO</button>
+        <input ref={inputRef} type="text" placeholder='ADD TODO' className='border-2 p-2 border-black w-2/3 ' onInput={handleinput} value={inputvalue} />
+        <button type="submit"
+          onClick={inputsubmit}
+          className="bg-yellow-400 text-white font-bold py-2 px-4 rounded hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:ring-opacity-50 transition duration-150 ease-in-out"
+        >ADD TODO</button>
       </form>
       {ERROR && <p className='text-red-700 font-serif font-bold text-lg'>Please Enter Some TODO</p>}
 

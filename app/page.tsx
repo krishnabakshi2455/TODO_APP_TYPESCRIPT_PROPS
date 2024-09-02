@@ -30,9 +30,11 @@ export default function Home() {
   const EDITTODO = (todo:string,index:number)=>{
     setEDITTODOs(todo)
     console.log('this is editindex', index);
+    const updatedtodo = ALLTODOs.filter(ALLTODOs => ALLTODOs !== todo);
+    setALLTODOs(updatedtodo);
     
   }
-  console.log('this is edittodo', EDITTODOs);
+  // console.log('this is edittodo', EDITTODOs);
   return (
     <>
       <div className="flex flex-col justify-center items-center p-10 gap-16">
