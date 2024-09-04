@@ -19,7 +19,7 @@ const List: React.FC<ListProps> = ({ TODOARRAY, DELETETODO, EDITTODO }) => {
         {
           TODOARRAY.map((todo, index) => {
             return (
-              <div className='flex justify-between items-center border-2 m-3 border-black p-2'>
+              <div className='flex justify-between items-center border-2 m-3 border-black p-2' key={index}>
                 <p key={index}>{todo}</p>
                 <div className='flex gap-14'>
                   <button className="bg-red-600 text-white font-bold py-2 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-150 ease-in-out"
